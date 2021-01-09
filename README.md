@@ -1,13 +1,6 @@
 # aviation
 Download geospatial data of airspaces, powerlines, and aulav natural protected areas and bundle it into a .mbtile file.
 
-## tippecanoe
-```bash
-git clone https://github.com/mapbox/tippecanoe.git
-cd tippecanoe
-make -j
-```
-
 ## download airspaces
 
 ```bash
@@ -53,10 +46,16 @@ python3 aulav.py
 
 ## convert .geojson to .mbtiles
 
+```bash
+git clone https://github.com/mapbox/tippecanoe.git
+cd tippecanoe
+make -j
+```
+
 The ```-z10``` gives a zoom level of 10 with a precision of 10 m. https://github.com/mapbox/tippecanoe#zoom-levels
 
 ```bash
-./tippecanoe/tippecanoe -z10 -o airspaces.mbtiles *.geojson
+tippecanoe/tippecanoe -Z9 -z10 -o aviation.mbtiles powerlines.geojson aulav.geojson airspaces.geojson
 ```
 
 The output file is roughly 100 MB large.
@@ -64,5 +63,5 @@ The output file is roughly 100 MB large.
 ## inspect .mbtiles
 
 ```bash
-sudo docker run -it -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl airspaces.mbtiles
+sudo docker run -it -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl
 ```
