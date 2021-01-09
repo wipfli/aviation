@@ -43,8 +43,8 @@ categories = ['auen', 'jagdbanngebiete', 'moorlandschaften', 'uebrige']
 features = []
 
 for category in categories:
-    shp_path = glob.glob(category + '/*_LV95/*.shp')[0]
-    dbf_path = glob.glob(category + '/*_LV95/*.dbf')[0]
+    shp_path = glob.glob('aulav/' + category + '/*_LV95/*.shp')[0]
+    dbf_path = glob.glob('aulav/' + category + '/*_LV95/*.dbf')[0]
     
     shp = open(shp_path, 'rb')
     dbf = open(dbf_path, 'rb')
@@ -70,5 +70,5 @@ geojson = {
     'features': features
 }
 
-with open('../aulav.geojson', 'w') as f:
+with open('aulav.geojson', 'w') as f:
     json.dump(geojson, f)
