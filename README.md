@@ -58,7 +58,7 @@ The ```-z10``` gives a zoom level of 10 with a precision of 10 m. https://github
 tippecanoe/tippecanoe -Z9 -z10 -o aviation.mbtiles powerlines.geojson aulav.geojson airspaces.geojson
 ```
 
-The output file is roughly 100 MB large.
+The output file is roughly 151 MB large.
 
 ## inspect .mbtiles
 
