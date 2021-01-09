@@ -8,18 +8,19 @@ cd tippecanoe
 make -j
 ```
 
-## download airspaces data
+## download airspaces
 
 ```bash
 mkdir airspaces
-python airspaces.py
+python3 airspaces.py
 ```
 
-## download powerlines data
+## download powerlines
 
 ```bash
 mkdir powerlines
-python powerlines.py
+pip3 install overpy
+python3 powerlines.py
 ```
 
 ## download aulav
@@ -47,6 +48,7 @@ unzip data.zip && cd ..
 
 ```bash
 pip3 install pyshp
+python3 aulav.py
 ```
 
 ## convert .geojson to .mbtiles
