@@ -1,5 +1,5 @@
-# airspaces
-Download airspaces and convert them to .mbtiles
+# aviation
+Download geospatial data of airspaces, powerlines, and aulav natural protected areas and bundle it into a .mbtile file.
 
 ## tippecanoe
 ```bash
@@ -8,10 +8,45 @@ cd tippecanoe
 make -j
 ```
 
-## download data
+## download airspaces data
 
-```python
-python download.py
+```bash
+mkdir airspaces
+python airspaces.py
+```
+
+## download powerlines data
+
+```bash
+mkdir powerlines
+python powerlines.py
+```
+
+## download aulav
+
+```bash
+mkdir aulav
+cd aulav
+
+mkdir auen && cd auen
+wget https://data.geo.admin.ch/ch.bafu.schutzgebiete-aulav_auen/data.zip
+unzip data.zip && cd ..
+
+mkdir jagdbanngebiete && cd jagdbanngebiete
+wget https://data.geo.admin.ch/ch.bafu.schutzgebiete-aulav_jagdbanngebiete/data.zip 
+unzip data.zip && cd ..
+
+mkdir moorlandschaften && cd moorlandschaften
+wget https://data.geo.admin.ch/ch.bafu.schutzgebiete-aulav_moorlandschaften/data.zip
+unzip data.zip && cd ..
+
+mkdir uebrige && cd uebrige
+wget https://data.geo.admin.ch/ch.bafu.schutzgebiete-aulav_auen/data.zip
+unzip data.zip && cd ..
+```
+
+```bash
+pip3 install pyshp
 ```
 
 ## convert .geojson to .mbtiles
