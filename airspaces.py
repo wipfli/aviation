@@ -12,16 +12,3 @@ for country in countries:
     with open('airspaces/' + country['name'] + '.geojson', 'w') as f:
         f.write(r.text)
         
-all_features = []
-for country in countries:
-    print('parse ' + country['name'] + '...')
-    with open('airspaces/' + country['name'] + '.geojson') as f:
-        data = json.load(f)
-        all_features += data['features']
-        
-geojson = {'type': 'FeatureCollection', 'features': all_features}
-
-print('write airspaces.geojson...')
-with open('airspaces.geojson', 'w') as f:
-    json.dump(geojson, f)
-        

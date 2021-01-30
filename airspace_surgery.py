@@ -1,41 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
-
 import glob
 import json
 
+path_in = './airspaces/'
+path_out = './airspaces_processed/'
 
-# In[111]:
-
-
-get_ipython().system(' mkdir /scratch/wipfli/maps/airspaces_processed')
-
-
-# In[114]:
-
-
-path_in = '/scratch/wipfli/maps/airspaces/'
-path_out = '/scratch/wipfli/maps/airspaces_processed/'
 filenames = [path.split('/')[-1] for path in glob.glob(path_in + '*')]
-
-
-# In[115]:
-
-
-filenames
-
-
-# In[ ]:
-
-
-
-
-
-# In[214]:
-
 
 remove = {
     'france_fr.geojson': [
@@ -60,10 +29,6 @@ remove = {
 }
 
 
-# In[189]:
-
-
-# ['original', 'new']
 replacements = {
     'france_fr.geojson': [
         ['Bale10 119.35', 'Bale 10 TMA 130.9'],
@@ -117,10 +82,6 @@ replacements = {
     ]
 }
 
-
-# In[218]:
-
-
 for filename in filenames:
     print(filename)
     
@@ -149,26 +110,17 @@ for filename in filenames:
     with open(path_out + filename, 'w') as f:
         json.dump(geojson, f)
 
-
-# In[219]:
-
-
 all_features = []
 for filename in filenames:
     print('read ' + filename + '...')
     with open(path_out + filename) as f:
         all_features += json.load(f)['features']
+
 print('write airspaces.geojson...')
-with open('/scratch/wipfli/maps/airspaces.geojson', 'w') as f:
+
+with open('airspaces.geojson', 'w') as f:
     json.dump({
         'type': 'FeatureCollection',
         'features': all_features
     }, f)
 print('done')
-
-
-# In[ ]:
-
-
-
-

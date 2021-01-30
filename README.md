@@ -1,11 +1,13 @@
 # aviation
 Download geospatial data of airspaces, powerlines, and aulav natural protected areas and bundle it into a .mbtile file.
 
-## download airspaces
+## download and process airspaces
 
 ```bash
 mkdir airspaces
 python3 airspaces.py
+mkdir airspaces_processed
+python3 airspace_surgery.py
 ```
 
 ## download powerlines
