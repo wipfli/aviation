@@ -1,4 +1,3 @@
-import shapefile
 import glob
 import json
 
@@ -39,36 +38,32 @@ def LV95_to_lon_lat(point):
         CHtoWGSlat(point[0] - 2e6, point[1] - 1e6)
     ]
 
+def recursive_map_coordinates(obj):
+    if isinstance(obj[0], list):
+        return [recursive_map_coordinates(o) for o in obj]
+    else:
+        return LV95_to_lon_lat(obj)
+
 categories = ['auen', 'jagdbanngebiete', 'moorlandschaften', 'uebrige']
 features = []
 
 for category in categories:
-    shp_path = glob.glob('aulav/' + category + '/*_LV95/*.shp')[0]
-    dbf_path = glob.glob('aulav/' + category + '/*_LV95/*.dbf')[0]
-    
-    shp = open(shp_path, 'rb')
-    dbf = open(dbf_path, 'rb')
-    
-    r = shapefile.Reader(shp=shp, dbf=dbf)
-    
-    for shape in r.shapes():
-        coordinates = [LV95_to_lon_lat(point) for point in shape.points]
-        
-        feature = {
+    with open('aulav/' + category + '-lv95.geojson') as f:
+        data = json.load(f)
+    for feature in data['features']:
+        features += [{
             'type': 'Feature',
+            'properties': feature['properties'],
             'geometry': {
-                'type': 'Polygon',
-                'coordinates': [coordinates]
-            },
-            'properties': {}
-        }
-        
-        features += [feature]
-        
+                'type': feature['geometry']['type'],
+                'coordinates': recursive_map_coordinates(feature['geometry']['coordinates'])
+            }
+        }]
+
 geojson = {
     'type': 'FeatureCollection',
     'features': features
 }
 
-with open('aulav.geojson', 'w') as f:
+with open('aulav-overlapping.geojson', 'w') as f:
     json.dump(geojson, f)
