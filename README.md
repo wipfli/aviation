@@ -68,6 +68,12 @@ python3 aulav.py
 mapshaper -i aulav-overlapping.geojson -dissolve2 -o aulav.geojson geojson-type=FeatureCollection
 ```
 
+## download weather stations (for Switzerland)
+
+```bash
+python3 stations.py
+```
+
 ## convert .geojson to .mbtiles
 
 ```bash
@@ -79,7 +85,7 @@ make -j
 The ```-z10``` gives a zoom level of 10 with a precision of 10 m. https://github.com/mapbox/tippecanoe#zoom-levels
 
 ```bash
-tippecanoe/tippecanoe -Z9 -z10 -o aviation.mbtiles powerlines.geojson aulav.geojson airspaces.geojson place_ele.geojson
+tippecanoe/tippecanoe -Z9 -z10 -o aviation.mbtiles powerlines.geojson aulav.geojson airspaces.geojson place_ele.geojson stations.geojson
 ```
 
 The output file is roughly 155 MB large.
