@@ -12,24 +12,24 @@ for i in range(299):
     if df.loc[i]['Stationstyp'] == 'Wetterstation':
         name = df.loc[i]['Station']
         wigos_id = df.loc[i]['WIGOS-ID']
-        sma_id = df.loc[i]['Abk.']
         altitude = df.loc[i]['Stationshöhe m. ü. M.']
         latitude = df.loc[i]['Breitengrad']
         longitude = df.loc[i]['Längengrad']
         
         properties = {
             'name': str(name),
-            'wigos_id': str(wigos_id),
-            'sma_id': str(sma_id),
-            'altitude': str(altitude)            
+            'id': str(wigos_id),
+            'altitude': str(altitude),
+            'longitude': ('%.4f' % longitude),
+            'latitude': ('%.4f' % latitude),
         }
         feature = {
             'type': 'Feature',
             'properties': properties,
             'geometry': {
                 'type': 'Point',
-                'coordinates': [float(longitude), float(latitude)]
-            }
+                'coordinates': [float('%.4f' % longitude), float('%.4f' % latitude)]
+            },
         }
         features += [feature]
 
@@ -37,7 +37,6 @@ geojson = {
     'type': 'FeatureCollection',
     'features': features
 }
-
 
 with open('stations.geojson', 'w') as f:
     json.dump(geojson, f)
